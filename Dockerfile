@@ -5,7 +5,7 @@ ENV FILEBEAT_VERSION=5.6.5 \
     FILEBEAT_SHA1=e3efb30b5d4f347610093f507a7a5ca5452ca135
     
 RUN apk add --no-cache \
-    bash \
+    	bash \
 	cmake \
 	doxygen \
 	g++ \
@@ -17,7 +17,7 @@ RUN apk add --no-cache \
 	qt \
 	qt5-qtbase-dev \
 	sudo \
-    && ln -s /usr/bin/qmake-qt5 /usr/bin/qmake
+    	&& ln -s /usr/bin/qmake-qt5 /usr/bin/qmake
     
 # Install filebeat
 RUN wget -q -O /tmp/filebeat.tar.gz https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz \
