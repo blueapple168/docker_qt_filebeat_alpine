@@ -1,4 +1,4 @@
-FROM blueapple/docker_qt_alpine:latest
+FROM blueapple/docker_qt_alpine
 MAINTAINER blueapple <blueapple1120@qq.com>
 
 ENV FILEBEAT_VERSION=5.6.5 \
