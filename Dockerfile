@@ -6,7 +6,9 @@ ENV FILEBEAT_VERSION=5.6.5 \
 
 # Install filebeat
 RUN set -ex \
-    && apk --update add wget \
+    && apk add --no-cache --virtual .build-deps \
+    && apk update \
+    && apk add wget \
     && wget -q -O /tmp/filebeat.tar.gz https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz \
     && cd /tmp \
     && echo "${FILEBEAT_SHA1}  filebeat.tar.gz" | sha1sum -c - \
