@@ -21,13 +21,13 @@ RUN apk add --no-cache \
     
 # Install filebeat
 RUN wget -q -O /tmp/filebeat.tar.gz https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz \
-    && cd /tmp \
-    && echo "${FILEBEAT_SHA1}  filebeat.tar.gz" | sha1sum -c - \
-    && tar xzvf filebeat.tar.gz \
-    && cd filebeat-* \
-    && cp filebeat /bin \
-    && rm -rf /tmp/filebeat* \
-    && rm -rf /var/cache/apk/*
+	&& cd /tmp \
+	&& echo "${FILEBEAT_SHA1}  filebeat.tar.gz" | sha1sum -c - \
+	&& tar xzvf filebeat.tar.gz \
+	&& cd filebeat-* \
+	&& cp filebeat /bin \
+	&& rm -rf /tmp/filebeat* \
+	&& rm -rf /var/cache/apk/*
 
 COPY docker-entrypoint.sh /
 RUN chmod +x docker-entrypoint.sh
