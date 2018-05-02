@@ -1,4 +1,4 @@
-FROM blueapple/alpine_glibc_basicimage
+FROM blueapple/alpine35_glibc_basicimage
 MAINTAINER blueapple <blueapple1120@qq.com>
 
 ENV FILEBEAT_VERSION=5.6.5 \
