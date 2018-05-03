@@ -1,4 +1,7 @@
 # Docker for alpine_openjdk_glibc_qt_filebeat
+
+docker pull blueapple/alpine35_glibc_basicimage
+
 alpine：3.5
 
 openjdk：1.8
