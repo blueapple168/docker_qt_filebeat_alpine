@@ -1,5 +1,5 @@
 # Docker for alpine_openjdk_glibc_qt_filebeat
-alpine：3.7
+alpine：3.5
 
 openjdk：1.8
 
