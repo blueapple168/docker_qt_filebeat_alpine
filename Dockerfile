@@ -20,7 +20,7 @@ RUN apk add --no-cache \
     	&& ln -s /usr/bin/qmake-qt5 /usr/bin/qmake
     
 # Install filebeat
-RUN wget --no-check-certificate -q -O /tmp/filebeat.tar.gz https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz \
+RUN wget -q -O /tmp/filebeat.tar.gz https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz --no-check-certificate \
 	&& cd /tmp \
 	&& echo "${FILEBEAT_SHA1}  filebeat.tar.gz" | sha1sum -c - \
 	&& tar xzvf filebeat.tar.gz \
