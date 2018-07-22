@@ -1,8 +1,5 @@
 FROM blueapple/alpine35_glibc_basicimage
 MAINTAINER blueapple <blueapple1120@qq.com>
-
-ENV FILEBEAT_VERSION=5.6.5 \
-    FILEBEAT_SHA1=e3efb30b5d4f347610093f507a7a5ca5452ca135
     
 RUN apk add --no-cache \
     	bash \
@@ -11,6 +8,7 @@ RUN apk add --no-cache \
 	g++ \
 	gcc \
 	git \
+	curl \
 	graphviz \
 	make \
 	musl-dev \
@@ -19,18 +17,22 @@ RUN apk add --no-cache \
 	sudo \
     	&& ln -s /usr/bin/qmake-qt5 /usr/bin/qmake
     
-# Install filebeat
-RUN curl -sSL -o /tmp/filebeat.tar.gz https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz \
-	&& cd /tmp \
-	&& echo "${FILEBEAT_SHA1}  filebeat.tar.gz" | sha1sum -c - \
-	&& tar xzvf filebeat.tar.gz \
-	&& cd filebeat-* \
-	&& cp filebeat /bin \
-	&& rm -rf /tmp/filebeat* \
-	&& rm -rf /var/cache/apk/*
+ARG PINPOINT_VERSION=${PINPOINT_VERSION:-1.7.3}
+ARG INSTALL_URL=https://github.com/naver/pinpoint/releases/download/${PINPOINT_VERSION}/pinpoint-agent-${PINPOINT_VERSION}.tar.gz
 
-COPY docker-entrypoint.sh /
-RUN chmod +x docker-entrypoint.sh
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD [ "filebeat", "-e" ]
+COPY configure-agent.sh /usr/local/bin/
+RUN chmod a+x /usr/local/bin/configure-agent.sh \
+    && mkdir -p /pinpoint-agent \
+    && chmod -R o+x /pinpoint-agent \
+    && curl -SL ${INSTALL_URL} -o pinpoint-agent.tar.gz \
+    && gunzip pinpoint-agent.tar.gz \
+    && tar -xf pinpoint-agent.tar -C /pinpoint-agent \
+    && rm pinpoint-agent.tar \
+    && apk del curl \
+    && rm /var/cache/apk/*
+
+VOLUME ["/pinpoint-agent"]
+
+ENTRYPOINT ["/usr/local/bin/configure-agent.sh"]
+CMD ["tail", "-f", "/dev/null"]
 
