@@ -10,4 +10,4 @@ glibc：2.26-r0
 
 qt：5.9.1
 
-filebeat：5.6.5
+pinpoint-agent：1.7.3
