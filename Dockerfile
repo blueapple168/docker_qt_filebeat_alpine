@@ -11,7 +11,6 @@ RUN apk add --no-cache \
 	g++ \
 	gcc \
 	git \
-	curl \
 	graphviz \
 	make \
 	musl-dev \
@@ -27,9 +26,9 @@ RUN chmod a+x /usr/local/bin/configure-agent.sh \
     && curl -SL ${INSTALL_URL} -o pinpoint-agent.tar.gz \
     && gunzip pinpoint-agent.tar.gz \
     && tar -xf pinpoint-agent.tar -C /pinpoint-agent \
-    && rm pinpoint-agent.tar \
-    && apk del curl \
-    && rm /var/cache/apk/*
+    && rm pinpoint-agent.tar
+    ##&& apk del curl \
+    ##&& rm /var/cache/apk/*
 
 VOLUME ["/pinpoint-agent"]
 
