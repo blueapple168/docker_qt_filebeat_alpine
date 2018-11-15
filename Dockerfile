@@ -1,4 +1,4 @@
-FROM blueapple/alpine35_glibc_basicimage
+FROM blueapple/alpine35_glibc_basicimage:base
 MAINTAINER blueapple <blueapple1120@qq.com>
 
 ARG PINPOINT_VERSION=${PINPOINT_VERSION:-1.7.3}
